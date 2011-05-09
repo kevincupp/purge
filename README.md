@@ -13,7 +13,7 @@ Add the "purge" folder inside your system/expressionengine/third_party directory
 
 Prepare Varnish
 ------------
-Purge assumes your Varnish cache is accessible at $\_SERVER['HTTP\_HOST'] through port 80. To change these settings, edit purge/helpers/varnish\_helper.php. Purge will send an EE\_PURGE request to Varnish. To get Varnish reacting to this request, add this to your VCL file in vcl_recv:
+Purge assumes your Varnish cache is accessible at $\_SERVER['HTTP\_HOST'] through port 80. To change these settings, edit purge/helpers/varnish\_helper.php (this may be added to a Settings screen in a later update). Purge will send an EE\_PURGE request to Varnish. To get Varnish reacting to this request, add this to your VCL file in vcl_recv:
 
 	if (req.request == "EE_PURGE") {
 		purge("req.http.host ~ example.com && req.url ~ ^/.*$");
