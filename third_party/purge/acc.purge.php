@@ -54,8 +54,10 @@ class Purge_acc
 		{
 			$EE =& get_instance();
 			$EE->load->helper('varnish');
-			
-			send_purge_request();
+			$site_url = $this->EE->config->item('varnish_site_url');
+  		$port = $this->EE->config->item('varnish_port');
+  		
+			send_purge_request($site_url, $port);
 		}
 	}
 }
