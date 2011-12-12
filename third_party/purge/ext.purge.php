@@ -42,8 +42,8 @@ class Purge_ext
 	public function __construct($settings = '')
 	{
 		$this->EE =& get_instance();
-		$this->site_url = $EE->config->item('varnish_site_url');
-    $this->port = $EE->config->item('varnish_port');
+		$this->site_url = $this->EE->config->item('varnish_site_url');
+    $this->port = $this->EE->config->item('varnish_port');
     
 	}// ----------------------------------------------------------------------
 	
