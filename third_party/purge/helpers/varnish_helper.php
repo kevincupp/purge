@@ -11,6 +11,7 @@ if ( ! function_exists('send_purge_request'))
 	{
 		$protocol = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? "https://" : "http://";
 		$site_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
+		$port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;				
 		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $site_url); 
