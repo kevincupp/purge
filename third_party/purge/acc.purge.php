@@ -28,7 +28,7 @@ class Purge_acc
 {	
 	public $name			= 'Purge';
 	public $id				= 'purge';
-	public $version			= '1.0';
+	public $version			= '1.0.1';
 	public $description		= 'Provides a place to manually send a purge request to Varnish.';
 	public $sections		= array();
 	

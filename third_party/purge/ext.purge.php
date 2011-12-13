@@ -30,7 +30,7 @@ class Purge_ext
 	public $docs_url		= '';
 	public $name			= 'Purge';
 	public $settings_exist	= 'n';
-	public $version			= '1.0';
+	public $version			= '1.0.1';
 	
 	private $EE;
 	
