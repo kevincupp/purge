@@ -16,7 +16,8 @@ if ( ! function_exists('send_purge_request'))
     }
     else {
       $parsed_url = parse_url($site_url);
-      $purge_url = $parsed_url["scheme"] . "://" . $parsed_url["host"] . $parsed_url["path"];
+      $url_path = array_key_exists("path", $parsed_url) ? $parsed_url["path"] : '/';
+      $purge_url = $parsed_url["scheme"] . "://" . $parsed_url["host"] . $url_path;
       $port = (!array_key_exists("port", $parsed_url) || is_null($parsed_url["port"])) ? 80 : $parsed_url["port"];
     }
 
