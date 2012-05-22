@@ -43,7 +43,7 @@ class Purge_ext
 	{
 		$this->EE =& get_instance();
 		$this->site_url = $this->EE->config->item('varnish_site_url');
-    $this->port = $this->EE->config->item('varnish_port');
+        $this->port = $this->EE->config->item('varnish_port');
     
 	}// ----------------------------------------------------------------------
 	
@@ -90,8 +90,13 @@ class Purge_ext
 	public function send_purge_request()
 	{
 		$this->EE->load->helper('varnish');
+
+        $urls = $this->site_url;
+        if (!is_array($urls))
+            $urls = array($urls);
 		
-		send_purge_request($this->site_url, $this->port);
+        foreach ($urls as $url)
+            send_purge_request($url, $this->port);
 	}
 
 	// ----------------------------------------------------------------------
