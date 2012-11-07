@@ -90,13 +90,18 @@ class Purge_ext
 	public function send_purge_request()
 	{
 		$this->EE->load->helper('varnish');
-
-        $urls = $this->site_url;
-        if (!is_array($urls))
-            $urls = array($urls);
 		
-        foreach ($urls as $url)
-            send_purge_request($url, $this->port);
+ 		$urls = $this->site_url;
+		
+		if ( ! is_array($urls))
+		{
+			$urls = array($urls)
+		}
+		
+		foreach ($urls as $url)
+		{
+			send_purge_request($url, $this->port);
+		}
 	}
 
 	// ----------------------------------------------------------------------
