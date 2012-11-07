@@ -28,6 +28,7 @@ if ( ! function_exists('send_purge_request'))
     curl_setopt($ch, CURLOPT_URL, $site_url);
     curl_setopt($ch, CURLOPT_PORT , (int)$port);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST,'EE_PURGE');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_exec($ch);
 	}
 }
