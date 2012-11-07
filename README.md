@@ -29,3 +29,15 @@ Varnish will attempt to figure out the host name and port to send the purge requ
 
 	$config['varnish_site_url'] = 'http://example.com';
 	$config['varnish_port'] = 80;
+
+``varnish_site_url`` can also be an array for purging multiple URLs.
+
+## Changelog
+
+* **1.0.2 - November 7, 2012**
+	* Fixing issue #6 where output from purge request may be sent to the browser.
+* **1.0.1 - May 22, 2012**
+	* Added ability for multiple URLs to be purged.
+	* Added ``varnish_site_url`` and ``varnish_port`` config overrides.
+* **1.0 - December 12, 2011**
+	* Initial release!
