@@ -95,7 +95,7 @@ class Purge_ext
 		
 		if ( ! is_array($urls))
 		{
-			$urls = array($urls)
+			$urls = array($urls);
 		}
 		
 		foreach ($urls as $url)
