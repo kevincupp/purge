@@ -29,7 +29,7 @@ if ( ! function_exists('send_purge_request'))
 		}
 		
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $site_url);
+		curl_setopt($ch, CURLOPT_URL, $purge_url);
 		curl_setopt($ch, CURLOPT_PORT , (int)$port);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST,'EE_PURGE');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
