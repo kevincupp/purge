@@ -39,8 +39,7 @@ class Purge_acc
 	{
 		$EE =& get_instance();
 		
-		// Tried to use BASE and AMP constants but was causing "Disallowed Key Characters" error
-		$data['request_url'] = 'index.php?D=cp&C=addons_accessories&M=process_request&accessory=purge&method=process_purge_request';
+		$data['request_url'] = html_entity_decode(BASE.AMP.'C=addons_accessories'.AMP.'M=process_request'.AMP.'accessory=purge'.AMP.'method=process_purge_request');
 		
 		$this->sections['Purge Varnish'] = $EE->load->view('accessory_purge_varnish', $data, TRUE);
 	}

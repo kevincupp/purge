@@ -34,6 +34,8 @@ Varnish will attempt to figure out the host name and port to send the purge requ
 
 ## Changelog
 
+* **1.0.3 - November 2, 2013**
+	* Fixing issue #8 where the Purge accessory wasn't working for sites using sessions in the control panel.
 * **1.0.2 - November 7, 2012**
 	* Fixing issue #6 where output from purge request may be sent to the browser.
 * **1.0.1 - May 22, 2012**
