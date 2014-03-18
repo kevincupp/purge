@@ -34,6 +34,8 @@ Varnish will attempt to figure out the host name and port to send the purge requ
 
 ## Changelog
 
+* **1.0.4 - March 17, 2014**
+	* Fixing issue #11 where there were bugs with purging multiple Varnish servers and purging by IP address.
 * **1.0.3 - November 2, 2013**
 	* Fixing issue #8 where the Purge accessory wasn't working for sites using sessions in the control panel.
 * **1.0.2 - November 7, 2012**

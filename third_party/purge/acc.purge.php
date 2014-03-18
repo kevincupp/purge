@@ -56,7 +56,15 @@ class Purge_acc
 			$site_url = $EE->config->item('varnish_site_url');
   		$port = $EE->config->item('varnish_port');
   		
-			send_purge_request($site_url, $port);
+			if ( ! is_array($urls))
+			{
+				$urls = array($urls);
+			}
+			
+			foreach ($urls as $url)
+			{
+				send_purge_request($url, $port);
+			}
 		}
 	}
 }

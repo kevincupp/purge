@@ -9,21 +9,23 @@ if ( ! function_exists('send_purge_request'))
 	 */
 	function send_purge_request($site_url = NULL, $site_port = NULL)
 	{
+		$protocol = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+		
 		if (empty($site_url))
 		{
-			$protocol = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? "https://" : "http://";
 			$purge_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
 			$port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : $site_port;
 		}
 		else
 		{
 			$parsed_url = parse_url($site_url);
-			$url_path = array_key_exists("path", $parsed_url) ? $parsed_url["path"] : '/';
-			$purge_url = $parsed_url["scheme"] . "://" . $parsed_url["host"] . $url_path;
-			$port = ( ! array_key_exists("port", $parsed_url) || is_null($parsed_url["port"])) ? 80 : $parsed_url["port"];
+			$url_path = isset($parsed_url['path']) ? $parsed_url['path'] : '/';
+			$url_scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : $protocol;
+			$purge_url = $url_scheme . $parsed_url['host'] . $url_path;
+			$port = ( ! isset($parsed_url['port']) || empty($parsed_url['port'])) ? 80 : $parsed_url['port'];
 		}
 		
-		if (is_null($port))
+		if (empty($port))
 		{
 			$port = 80;
 		}
