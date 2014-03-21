@@ -45,3 +45,5 @@ Varnish will attempt to figure out the host name and port to send the purge requ
 	* Added ``varnish_site_url`` and ``varnish_port`` config overrides.
 * **1.0 - December 12, 2011**
 	* Initial release!
+
+Licensed Under: BSD 2-clause
