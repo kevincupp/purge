@@ -72,23 +72,11 @@ class Purge_upd {
 	 */	
 	public function uninstall()
 	{
-		/*
-		$mod_id = $this->EE->db->select('module_id')
-								->get_where('modules', array(
-									'module_name'	=> 'Detour_pro'
-								))->row('module_id');
-		
-		$this->EE->db->where('module_id', $mod_id)
-					 ->delete('module_member_groups');
-		
-		$this->EE->db->where('module_name', 'Detour_pro')
-					 ->delete('modules');
+
 		
 		$this->EE->load->dbforge();
-		$this->EE->dbforge->drop_table('detours');
-		$this->EE->dbforge->drop_table('detours_hits');
-		
-		*/
+		$this->EE->dbforge->drop_table('purge_rules');
+
 		return TRUE;
 	}
 	
