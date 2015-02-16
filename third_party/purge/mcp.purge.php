@@ -32,8 +32,6 @@ class Purge_mcp {
 	public function index()
 	{
 		
-		//$this->EE->load->library('table');
-		
 		$_data = array();
 		
 		$_data['action_url'] = $this->_base_url . '&method=save';
