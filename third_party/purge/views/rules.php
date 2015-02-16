@@ -6,7 +6,6 @@
 	$( document ).ready(function() {
 		var addtemplate = $('#add-template')[0].outerHTML; 
 		$('#add-template').remove();
-		console.info('this is working');
 		
 		$(document).on('click', '.icon-remove', function() {
 			$(this).parents('tr.rulerow').remove();

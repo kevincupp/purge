@@ -4,7 +4,7 @@
 
 class Purge_upd {
 	
-	public $version = '1.0';
+	public $version = '1.1';
 	
 	private $EE;
 	
@@ -36,11 +36,9 @@ class Purge_upd {
 		$sql[] = "
 		CREATE TABLE `{$this->EE->db->dbprefix}purge_rules` (
 			`id` int(11) unsigned NOT NULL auto_increment,
-			`site_id` int(4) unsigned NOT NULL default '1',
-	 		`channel_id` int(4) NOT NULL,
+			`channel_id` int(4) unsigned NOT NULL,
 	 		`pattern` varchar(255) default NULL,
-			PRIMARY KEY  (`id`),
-			KEY `site_id` (`site_id`)
+			PRIMARY KEY  (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 
@@ -73,6 +71,16 @@ class Purge_upd {
 	public function uninstall()
 	{
 
+		$mod_id = $this->EE->db->select('module_id')
+								->get_where('modules', array(
+									'module_name'	=> 'Purge'
+								))->row('module_id');
+		
+		$this->EE->db->where('module_id', $mod_id)
+					 ->delete('module_member_groups');
+		
+		$this->EE->db->where('module_name', 'Purge')
+					 ->delete('modules');
 		
 		$this->EE->load->dbforge();
 		$this->EE->dbforge->drop_table('purge_rules');
@@ -90,7 +98,7 @@ class Purge_upd {
 	public function update($current = '')
 	{
 		// If you have updates, drop 'em in here.
-		return TRUE;
+		return FALSE;
 	}
 	
 

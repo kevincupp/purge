@@ -6,10 +6,8 @@ class Purge_mcp {
 	
 	public $return_data;
 	public $return_array = array();
-	
 	private $_base_url;
-	private $_data = array();
-	private $_module = 'purge';
+
 	
 	
 	/**
@@ -22,7 +20,7 @@ class Purge_mcp {
 		$this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=purge';
 		
 		$this->EE->cp->set_right_nav(array(
-			'module_home'	=> $this->_cp_url()
+			'module_home'	=> $this->_base_url
 		));
 
 		$this->EE->view->cp_page_title = "Purge: Channel URL Patterns for Varnish";
@@ -34,19 +32,20 @@ class Purge_mcp {
 	public function index()
 	{
 		
-		$this->EE->load->library('table');
+		//$this->EE->load->library('table');
 		
-		$this->_data['action_url'] = $this->_base_url . '&method=save';
-		//$this->_data['images'] = $this->get_alttags();
+		$_data = array();
 		
+		$_data['action_url'] = $this->_base_url . '&method=save';
+				
 		$this->EE->load->model('channel_model');
 		$channels_query = $this->EE->channel_model->get_channels()->result();
 		foreach ($channels_query as $channel) 
-			$this->_data['channels'][] = array('channel_title' => $channel->channel_title, 'channel_name' => $channel->channel_name, 'channel_id' => $channel->channel_id );
+			$_data['channels'][] = array('channel_title' => $channel->channel_title, 'channel_name' => $channel->channel_name, 'channel_id' => $channel->channel_id );
 		
-		$this->_data['rules'] = $this->get();
+		$_data['rules'] = $this->get();
 		
-		return $this->EE->load->view('rules', $this->_data, TRUE);
+		return $this->EE->load->view('rules', $_data, TRUE);
 		
 	}
 	
@@ -69,40 +68,11 @@ class Purge_mcp {
 		{
 			$this->EE->db->insert( 'purge_rules', array('channel_id' => $channel, 'pattern' => $patterns[$key]) );	
 		}
-		
-		// Redirect back to Detour Pro landing page
+
 		$this->EE->functions->redirect($this->_base_url);
 	}
 
-	function strposa($haystack, $needle, $offset=0) {
-		if(!is_array($needle)) $needle = array($needle);
-		foreach($needle as $query) {
-			if(strpos($haystack, $query, $offset) !== false) return true; // stop on first true result
-		}
-		return false;
-	}
-	
-	
-	
-	private function _cp_url ($method = 'index', $variables = array()) {
-		$url = BASE . AMP . 'C=addons_modules' . AMP . 'M=show_module_cp' . AMP . 'module=' . $this->_module . AMP . 'method=' . $method;
-		
-		foreach ($variables as $variable => $value) {
-			$url .= AMP . $variable . '=' . $value;
-		}
-		
-		return $url;
-	}
-	
-	private function _form_url ($method = 'index', $variables = array()) {
-		$url = 'C=addons_modules' . AMP . 'M=show_module_cp' . AMP . 'module=' . $this->_module . AMP . 'method=' . $method;
-		
-		foreach ($variables as $variable => $value) {
-			$url .= AMP . $variable . '=' . $value;
-		}
-		
-		return $url;
-	}
+
 	
 	
 
