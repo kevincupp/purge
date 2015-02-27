@@ -14,8 +14,8 @@ Add the "purge" folder inside your system/expressionengine/third_party directory
 
 Purge assumes your Varnish cache is accessible at $\_SERVER['HTTP\_HOST'] through port 80. To change these settings, edit purge/helpers/varnish\_helper.php (this may be added to a Settings screen in a later update). Purge will send an EE\_PURGE request to Varnish. To get Varnish reacting to this request, add this to your VCL file in vcl_recv:
 
-	if (req.request == "EE_PURGE") {
-		ban("req.http.host ~ example.com && req.url ~ ^/.*$");
+	if (req.request == "PURGE") {
+		ban("req.url ~ "+req.url);
 		error 200 "Purged";
 	}
 
@@ -27,13 +27,19 @@ For now, Purge cannot decide which parts of a site need updating and which can s
 
 Varnish will attempt to figure out the host name and port to send the purge request to. If this fails for some reason or you want to specify it on your own, you can set it via these config variables:
 
-	$config['varnish_site_url'] = 'http://example.com';
+	$config['varnish_site_url'] = 'http://example.com'; //can also use ips. Note this can also be an array as mentioned below.
 	$config['varnish_port'] = 80;
 
 ``varnish_site_url`` can also be an array for purging multiple URLs.
 
+## Control panel 
+
+If you click into modules > Purge you can now set URL patterns to purge when entries are saved in different channels. 
+
 ## Changelog
 
+* **1.1 - February 13, 2015**
+	* Changed addon to only purge via url patterns when entries are saved. All cache can still be purged using the accessory. 
 * **1.0.4 - March 17, 2014**
 	* Fixing issue #11 where there were bugs with purging multiple Varnish servers and purging by IP address.
 * **1.0.3 - November 2, 2013**

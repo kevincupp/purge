@@ -87,8 +87,9 @@ class Purge_ext
 	 * @param 
 	 * @return 
 	 */
-	public function send_purge_request()
+	public function send_purge_request($id,$meta,$data)
 	{
+		
 		$this->EE->load->helper('varnish');
 		
  		$urls = $this->site_url;
@@ -98,13 +99,34 @@ class Purge_ext
 			$urls = array($urls);
 		}
 		
+		//get patterns for this channel
+		$this->EE->db->select('*');
+		$this->EE->db->where('channel_id',(int) $meta['channel_id']);
+		$channelPatterns = $this->EE->db->get_where('purge_rules')->result_array();
+		
+		//if no patterns this may mean patterns aren't configured therefore revert to old behaviour of clearing everything 
+		if(count($channelPatterns)==0)
+		{
+			//are there any patterns at all? 
+			$this->EE->db->select('*');
+			$channelPatterns = $this->EE->db->get_where('purge_rules')->result_array();
+			if(count($channelPatterns)==0) $channelPatterns = array( array('pattern','/.*$') );
+			else return false; //patterns are configured but not for this channel.
+		}
+		
+		//now loop through varnish urls
 		foreach ($urls as $url)
 		{
-			send_purge_request($url, $this->port);
+			//and loop through patterns for each
+			foreach($channelPatterns as $pattern)
+			{
+				$_pattern = str_replace('{url_title}',$meta['url_title'],$pattern['pattern']); //only str replacing url title at this point
+				$_url = preg_replace('/\/$/','',$url).'/'.preg_replace('/^\//','',$_pattern); //handle trailing and beginning slashes
+				send_purge_request($_url, $this->port);
+				unset($_pattern);
+			}
 		}
 	}
-
-	// ----------------------------------------------------------------------
 
 	/**
 	 * Disable Extension
