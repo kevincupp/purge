@@ -51,6 +51,9 @@ class Purge_acc
 	{
 		if (AJAX_REQUEST)
 		{
+			
+			
+			
 			$EE =& get_instance();
 			$EE->load->helper('varnish');
 			$urls = $EE->config->item('varnish_site_url');
@@ -63,7 +66,17 @@ class Purge_acc
 			
 			foreach ($urls as $url)
 			{
-				send_purge_request($url, $port);
+				if($_POST['purge_url'] != '')
+					$_url = preg_replace('/\/$/','',$url).'/'.preg_replace('/^\//','',$_POST['purge_url']); //handle trailing and beginning slashes
+				else 
+					$_url = $url;
+				$resp = send_purge_request($_url, $port);
+				
+				echo $resp; //depending on curl to send varnish's response or an error
+				
+				die; //we die here instead of return to cut of template debugging 
+				
+				
 			}
 		}
 	}
