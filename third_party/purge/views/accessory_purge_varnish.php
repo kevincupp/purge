@@ -6,10 +6,6 @@
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function()
 	{
-		$('#purge_url').click(function()
-		{
-			if( ! $(this).val().match(/^\//) ) $(this).val('');
-		});
 		
 		$('#purge_varnish').click(function(event)
 		{
@@ -18,10 +14,10 @@
 			var url = $('#purge_url').val(); 
 			
 			if( url != '')
-			if( ! url.match(/^\/[^\/]/) ) { $('#purge_url').val('URL must start with one "/"'); return; }
+			if( ! url.match(/^\/[^\/]/) ) { alert('URL must start with one "/"'); return; }
 			
 			if( url == '' )
-			if( ! confirm('Are you sure you want to purge all cache? It may cause a cache stampede.') ) return;
+			if( ! confirm('Are you sure you want to purge all cache? It may cause a cache stampede during high traffic periods.') ) return;
 	
 			$('#purge_url').val('Sending purge request...');
 			

@@ -4,10 +4,8 @@
  
 class Purge_mcp {
 	
-	public $return_data;
-	public $return_array = array();
 	private $_base_url;
-
+	private $_site_id; 
 	
 	
 	/**
@@ -18,6 +16,7 @@ class Purge_mcp {
 		$this->EE =& get_instance();
 		
 		$this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=purge';
+		$this->_site_id = (int) $this->EE->config->item('site_id');
 		
 		$this->EE->cp->set_right_nav(array(
 			'module_home'	=> $this->_base_url
@@ -49,7 +48,9 @@ class Purge_mcp {
 	
 	private function get()
 	{
+		
 		$this->EE->db->select('*');
+		$this->EE->db->where('site_id', $this->_site_id);
 		return $this->EE->db->get_where('purge_rules')->result_array();
 	}
 	
@@ -64,7 +65,7 @@ class Purge_mcp {
 		
 		foreach($rules as $key => $channel)
 		{
-			$this->EE->db->insert( 'purge_rules', array('channel_id' => $channel, 'pattern' => $patterns[$key]) );	
+			$this->EE->db->insert( 'purge_rules', array('site_id' => $this->_site_id, 'channel_id' => $channel, 'pattern' => $patterns[$key]) );	
 		}
 
 		$this->EE->functions->redirect($this->_base_url);
