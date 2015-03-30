@@ -64,20 +64,22 @@ class Purge_acc
 				$urls = array($urls);
 			}
 			
+			$resp = ''; //if using multiple varnish servers, collect responses in here seperated by line break
+			
 			foreach ($urls as $url)
 			{
+				if(strlen($resp)>0) $resp .= "\n"; //if already captured other responses put in a line break
+				
 				if($_POST['purge_url'] != '')
 					$_url = preg_replace('/\/$/','',$url).'/'.preg_replace('/^\//','',$_POST['purge_url']); //handle trailing and beginning slashes
 				else 
 					$_url = $url;
-				$resp = send_purge_request($_url, $port);
-				
-				echo $resp; //depending on curl to send varnish's response or an error
-				
-				die; //we die here instead of return to cut of template debugging 
-				
-				
+					
+				$resp .= send_purge_request($_url, $port); //depending on curl to send varnish's response or an error
+							
 			}
+			
+			die($resp); //we die here instead of return to cut of template debugging 
 		}
 	}
 }
