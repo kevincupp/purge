@@ -89,7 +89,7 @@ class Purge_ext
 	 */
 	public function send_purge_request($id,$meta,$data)
 	{
-		
+
 		$this->EE->load->helper('varnish');
 		
  		$urls = $this->site_url;
@@ -102,6 +102,7 @@ class Purge_ext
 		//get patterns for this channel
 		$this->EE->db->select('*');
 		$this->EE->db->where('channel_id',(int) $meta['channel_id']);
+		$this->EE->db->where('site_id',(int) $meta['site_id']);
 		$channelPatterns = $this->EE->db->get_where('purge_rules')->result_array();
 		
 		//if no patterns this may mean patterns aren't configured therefore revert to old behaviour of clearing everything 

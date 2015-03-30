@@ -4,7 +4,7 @@
 
 class Purge_upd {
 	
-	public $version = '1.1';
+	public $version = '1.1.1';
 	
 	private $EE;
 	
@@ -37,6 +37,7 @@ class Purge_upd {
 		CREATE TABLE `{$this->EE->db->dbprefix}purge_rules` (
 			`id` int(11) unsigned NOT NULL auto_increment,
 			`channel_id` int(4) unsigned NOT NULL,
+			`site_id` int(4) unsigned NOT NULL,
 	 		`pattern` varchar(255) default NULL,
 			PRIMARY KEY  (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -38,6 +38,8 @@ If you click into modules > Purge you can now set URL patterns to purge when ent
 
 ## Changelog
 
+* **1.1.1 - March 13, 2015**
+	* Added support for MSM for URLs patterns in Purge Addon Admin settings. Can specify manual URLs in accessory. 
 * **1.1 - February 13, 2015**
 	* Changed addon to only purge via url patterns when entries are saved. All cache can still be purged using the accessory. 
 * **1.0.4 - March 17, 2014**
