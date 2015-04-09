@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  
+require_once PATH_THIRD.'purge/config.php';
+
 /**
  * ExpressionEngine - by EllisLab
  *
@@ -26,11 +28,11 @@
  
 class Purge_acc
 {	
-	public $name			= 'Purge';
-	public $id				= 'purge';
-	public $version			= '1.0.1';
-	public $description		= 'Provides a place to manually send a purge request to Varnish.';
-	public $sections		= array();
+	public $name        = PURGE_NAME;
+	public $id          = 'purge';
+	public $version     = PURGE_VERSION;
+	public $description = 'Provides a place to manually send a purge request to Varnish.';
+	public $sections    = array();
 	
 	/**
 	 * Set Sections

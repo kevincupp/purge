@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once PATH_THIRD.'purge/config.php';
+
 /**
  * ExpressionEngine - by EllisLab
  *
@@ -26,11 +28,11 @@
 
 class Purge_ext
 {	
-	public $description		= 'Sends purge header to Varnish after entry submission and deletion.';
-	public $docs_url		= '';
-	public $name			= 'Purge';
-	public $settings_exist	= 'n';
-	public $version			= '1.0.4';
+	public $description    = 'Sends purge header to Varnish after entry submission and deletion.';
+	public $docs_url       = '';
+	public $name           = PURGE_NAME;
+	public $settings_exist = 'n';
+	public $version        = PURGE_VERSION;
 	
 	private $EE;
 	
